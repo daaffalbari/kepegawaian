@@ -44,13 +44,13 @@
       <div class="container mt-5">
       <h4 class="text-center">Login Karyawan</h4>
       <hr>
-      <form action="" method="POST">
+      <form action="auth-loginKaryawan.php" method="POST">
         <div class="form-group"></div>
           <label>NIK</label>
             <div class="input-group">
               <div class="input-group-prepend"></div>
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
-                  <input type="number" name="nisn" class="form-control" placeholder="Masukan NIK Anda">
+                  <input type="number" name="nik" class="form-control" placeholder="Masukan NIK Anda">
             </div>
         <div class="form-group">
           <label>Password</label>

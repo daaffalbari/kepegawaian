@@ -13,11 +13,11 @@ $password = $_POST['password'];
 // Menghindari karakter SQL injection
 $nik = stripslashes($nik);
 $password = stripslashes($password);
-$username = mysqli_real_escape_string($koneksi, $username);
+$nik = mysqli_real_escape_string($koneksi, $nik);
 $password = mysqli_real_escape_string($koneksi, $password);
 
 // Mencocokan data yang diinput dengan data di database
-$login = mysqli_query($koneksi, "SELECT * FROM karyawan WHERE username='$username' AND password='$password'");
+$login = mysqli_query($koneksi, "SELECT * FROM karyawan WHERE nik='$nik' AND password='$password'");
 
 // Menghitung jumlah data yang ditemukan
 $cek = mysqli_num_rows($login);
@@ -28,7 +28,7 @@ if ($cek > 0) {
   $_SESSION['nik'] = $data['nik'];
   $_SESSION['password'] = $data['password'];
   $_SESSION['nama'] = $data['nama'];
-  header("location:../adminSeeSalary/index.php");
+  header("location:../karyawan/index.php");
 } else {
   header("location:../index.php?pesan=gagal");
 }
