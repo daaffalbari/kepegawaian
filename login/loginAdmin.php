@@ -44,13 +44,13 @@
       <div class="container mt-5">
       <h4 class="text-center">Login Admin</h4>
       <hr>
-      <form action="../adminSeeSalary/index.php" method="POST">
+      <form action="auth-loginAdmin.php" method="POST">
         <div class="form-group"></div>
           <label>Username</label>
             <div class="input-group">
               <div class="input-group-prepend"></div>
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
-                  <input type="text" name="nisn" class="form-control" placeholder="Masukan username anda">
+                  <input type="text" name="username" class="form-control" placeholder="Masukan username anda">
             </div>
         <div class="form-group">
           <label>Password</label>

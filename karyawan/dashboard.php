@@ -1,10 +1,8 @@
 <!doctype html>
 <?php
 session_start();
-if ($_SESSION['role'] != "Petugas") {
-  header("location:../index.php?pesan=petugas");
-}
 ?>
+
 <html lang="en">
 
 <head>
@@ -30,8 +28,8 @@ if ($_SESSION['role'] != "Petugas") {
       <ul class="navbar-nav mr-auto">
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <div> Hi! <?php echo $_SESSION['nama'] ?> </div>
-        <div class="logout"><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
+        <div>Selamat Datang Datang Daffa</div>
+        <div class="logout"><a href="./logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
       </form>
     </div>
   </nav>
@@ -43,9 +41,9 @@ if ($_SESSION['role'] != "Petugas") {
             <div class="image-user">
               <i class="fas fa-user"></i>
             </div>
-            <p> <?php echo $_SESSION['nama'] ?></p>
+            <p>Halo Daffa</p>
           </div>
-          <a class="nav-link sidebar active" href="perkuliahan.php" role="tab" aria-selected="false" id="link-perkuliahan"><i class="fas fa-university"></i> Gaji</a>
+          <a class="nav-link sidebar active" href="perkuliahan.php" role="tab" aria-selected="false" id="link-perkuliahan"><i class="fas fa-office"></i> Gaji</a>
         </div>
       </div>
       <div class="col-9">
@@ -56,80 +54,12 @@ if ($_SESSION['role'] != "Petugas") {
                 <div class="container">
                   <div class="row">
                     <div class="col-4">
-                      <h3 class="title-table"> Daftar Perkuliahan </h3>
+                      <h3 class="title-table"> Laporan Gaji </h3>
                     </div>
                     <div class="col-5"></div>
                     <div class="col-1 list-button">
-                      <button class="btn btn-primary btn-sm" style=" float: right;" onclick="ToPDF()"><i class="fa fa-file-pdf"></i> PDF</button>
-                      <div id="Tambah" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Tambah Data Perkuliahan</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <!-- TAMBAH -->
-                            <div class="modal-body">
-                              <input id="petugas" type="hidden" value='<?= $_SESSION['id_user'] ?>'>
-                              <div class="form-group">
-                                <label for="id">Mahasiswa</label>
-                                <select id="id" name="id" class="form-control" required>
-                                  <option>Pilih Mahasiswa</option>
-                                  <?php
-                                  include '../auth/koneksi.php';
-                                  $query = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
-                                  $i = 1;
-                                  while ($row = mysqli_fetch_array($query)) {
-                                    echo "<option class='id'" . $i . " value=" . $row['NIM'] . ">" . $row['NIM'] . " - " . $row['NamaMahasiswa'] . "</option>";
-                                    $i++;
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="idnd">Mata Kuliah</label>
-                                <select id="idnd" name="idnd" class="form-control" required>
-                                  <option>Pilih Mata Kuliah</option>
-                                  <?php
-                                  include '../auth/koneksi.php';
-                                  $query = mysqli_query($koneksi, "SELECT * FROM matakuliah");
-                                  $i = 1;
-                                  while ($row = mysqli_fetch_array($query)) {
-                                    echo "<option class='id'" . $i . " value=" . $row['KodeMK'] . ">" . $row['KodeMK'] . " - " . $row['NamaMK'] . "</option>";
-                                    $i++;
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="nip">Dosen</label>
-                                <select id="nip" name="nip" class="form-control" required>
-                                  <option>Pilih Dosen</option>
-                                  <?php
-                                  include '../auth/koneksi.php';
-                                  $query = mysqli_query($koneksi, "SELECT * FROM dosen");
-                                  $i = 1;
-                                  while ($row = mysqli_fetch_array($query)) {
-                                    echo "<option class='id'" . $i . " value=" . $row['NIP'] . ">" . $row['NIP'] . " - " . $row['NamaDosen'] . "</option>";
-                                    $i++;
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="nilai">Index Nilai</label>
-                                <input type="text" class="form-control" id="nilai" maxlength="1" aria-describedby="sks" required>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary btn_simpan">Save changes</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <button class="btn btn-primary btn-sm" style=" float: right;" onclick="ToPDF()"><i class="fa fa-file-pdf"></i> PDF
+                      </button>
                     </div>
                   </div>
                   <!-- TAMPIL -->
@@ -137,11 +67,11 @@ if ($_SESSION['role'] != "Petugas") {
                     <thead class="" style="background:#007BFF;color:#fff;">
                       <tr>
                         <th scope="col">No.</th>
-                        <th scope="col" hidden>Id</th>
+                        <th scope="col" >NIK</th>
                         <th scope="col">Nama Karyawan</th>
-                        <th scope="col" hidden>Jenis Kelamin</th>
+                        <th scope="col" >Jenis Kelamin</th>
                         <th scope="col">Alamat</th>
-                        <th scope="col" hidden>id gaji</th>
+                        <th scope="col" >Jabatan</th>
                         <th scope="col">Jumlah Gaji</th>
                         <th scope="col">
                           <center> </center>
@@ -150,107 +80,55 @@ if ($_SESSION['role'] != "Petugas") {
                     </thead>
                     <tbody>
                       <?php
-                      include '../auth/koneksi.php';
-                      $perkuliahan = mysqli_query($koneksi, "SELECT mahasiswa.NamaMahasiswa, dosen.NamaDosen, matakuliah.NamaMK, matakuliah.SKS, perkuliahan.NIM, perkuliahan.NIP, perkuliahan.KodeMK, perkuliahan.Nilai, user.nama
-                      FROM perkuliahan 
-                      INNER JOIN mahasiswa ON perkuliahan.NIM = mahasiswa.NIM
-                      INNER JOIN dosen ON perkuliahan.NIP = dosen.NIP
-                      INNER JOIN matakuliah ON perkuliahan.KodeMK = matakuliah.KodeMK
-                      INNER JOIN user ON perkuliahan.id_user = user.id_user");
-                      $i = 1;
-                      while ($row = mysqli_fetch_array($perkuliahan)) {
-                        echo "<tr class='item" . $row['NIM'] . "" . $row['KodeMK'] . "'>
-                          <td>" . $i . "</td>
-                          <td hidden>" . $row['NIM'] . "</td>
-                          <td>" . $row['NamaMahasiswa'] . "</td>
-                          <td hidden>" . $row['NIP'] . "</td>
-                          <td>" . $row['NamaDosen'] . "</td>
-                          <td hidden>" . $row['KodeMK'] . "</td>
-                          <td>" . $row['NamaMK'] . "</td>
-                          <td>" . $row['SKS'] . "</td>
-                          <td>" . $row['Nilai'] . "</td>
-                          <td>" . $row['nama'] . "</td>
-                          <td>
-                            <center>
-                                <button class='btn btn-primary btn_edit'data-toggle='modal' data-id=" . $row['NIM'] . " data-idnd=" . $row['KodeMK'] . " data-target='#edit'aria-hidden='true' type='button'><i class='fas fa-pen'></i> </button>
-                                <button class='btn btn-primary btn_delete' style='background:red;border:none;' data-id=" . $row['NIM'] . " data-idnd=" . $row['KodeMK'] . "> <i class='fas fa-trash'></i> </button>
-                            </center>
-                          </td>
-                        </tr>";
-                        $i++;
+                      include './function.php';
+                      $db = dbConnect();
+                      if($db->connect_errno == 0){
+                        $sql = "SELECT karyawan.nik, karyawan.nama, karyawan.jk, karyawan.alamat, penggajian.jumlah, jabatan.nama ((FROM karyawan INNER JOIN jabatan ON karyawan.nik = jabatan.id_jabatan) INNER JOIN penggajian ON jabatan.id = penggajian.id_gaji)";
+                        $res = $db->query($sql);
+                        if($res){
+                          $no = 1;
+                          while($data = $res->fetch_assoc()){
+                             ?>
+                              <td>
+                                <?php echo $no; ?>
+                              </td>
+                              <td>
+                                <?php echo $data['nik']; ?>
+                              </td>
+                              <td>
+                                <?php echo $data['nama']; ?>
+                              </td>
+                              <td>
+                                <?php echo $data['jk']; ?>  
+                              </td>
+                              <td>
+                                <?php echo $data['alamat']; ?>
+                              </td>
+                              <td>
+                                <?php echo $data['jabatan.nama']; ?>
+                              </td>
+                              <td>
+                                <?php echo $data['penggajian.jumlah']; ?>
+                              </td>
+
+                            <?php
+                          }
+                        }else{
+                          echo "Data tidak ditemukan";
+                        }
+                      }else{
+                        echo "Koneksi gagal";
                       }
                       ?>
+                      <!-- <td>1</td>
+                      <td>10120212</td>
+                      <td>Daffa</td>
+                      <td>Laki-laki</td>
+                      <td>Jl. Raya</td>
+                      <td>Cleaning Service</td>
+                      <td>Rp. 1.000.000</td> -->
                     </tbody>
                   </table>
-                  <div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Edit Data Perkuliahan</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <!-- EDIT -->
-                        <div class="modal-body">
-                          <input id="edit-petugas" type="hidden" value='<?= $_SESSION['id_user'] ?>'>
-                          <div class="form-group">
-                            <label for="edit-id">Mahasiswa</label>
-                            <select id="edit-id" name="edit-id" class="form-control" required>
-                              <option>Pilih Mahasiswa</option>
-                              <?php
-                              include '../auth/koneksi.php';
-                              $query = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
-                              $i = 1;
-                              while ($row = mysqli_fetch_array($query)) {
-                                echo "<option class='id'" . $i . " value=" . $row['NIM'] . ">" . $row['NIM'] . " - " . $row['NamaMahasiswa'] . "</option>";
-                                $i++;
-                              }
-                              ?>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="edit-idnd">Mata Kuliah</label>
-                            <select id="edit-idnd" name="edit-idnd" class="form-control" required>
-                              <option>Pilih Mata Kuliah</option>
-                              <?php
-                              include '../auth/koneksi.php';
-                              $query = mysqli_query($koneksi, "SELECT * FROM matakuliah");
-                              $i = 1;
-                              while ($row = mysqli_fetch_array($query)) {
-                                echo "<option class='id'" . $i . " value=" . $row['KodeMK'] . ">" . $row['KodeMK'] . " - " . $row['NamaMK'] . "</option>";
-                                $i++;
-                              }
-                              ?>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="edit-nip">Dosen</label>
-                            <select id="edit-nip" name="edit-nip" class="form-control" required>
-                              <option>Pilih Dosen</option>
-                              <?php
-                              include '../auth/koneksi.php';
-                              $query = mysqli_query($koneksi, "SELECT * FROM dosen");
-                              $i = 1;
-                              while ($row = mysqli_fetch_array($query)) {
-                                echo "<option class='id'" . $i . " value=" . $row['NIP'] . ">" . $row['NIP'] . " - " . $row['NamaDosen'] . "</option>";
-                                $i++;
-                              }
-                              ?>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="edit-nilai">Index Nilai</label>
-                            <input type="text" class="form-control" id="edit-nilai" maxlength="1" aria-describedby="sks" required>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary btn_update">Save changes</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </section>
             </div>
@@ -288,7 +166,7 @@ if ($_SESSION['role'] != "Petugas") {
           width: 522
         };
       doc.setFontSize(26);
-      doc.text(40, 35, 'Laporan Data Perkuliahan');
+      doc.text(40, 35, 'Laporan Data Gaji');
 
 
       doc.autoTable({
@@ -300,189 +178,189 @@ if ($_SESSION['role'] != "Petugas") {
           left: 40
         }
       });
-      doc.save('SBD-Akademik-Perkuliahan.pdf');
+      doc.save('Laporan Gaji.pdf');
     }
 
     // DELETE
-    function deleteAction(id, idnd) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-      swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          $.ajax({
-            url: "../controller/perkuliahan-controller.php",
-            type: 'post',
-            data: {
-              id,
-              idnd,
-              tipe: 'delete'
-            },
-            success: function(data) {
-              swalWithBootstrapButtons.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              );
-              $('.item' + id + idnd).fadeOut(1500, function() {
-                $(this).remove();
-              });
-            },
-            error: function(data) {
-              swalWithBootstrapButtons.fire(
-                'Gagal!',
-                'Failed to delete your file.',
-                'error'
-              );
-            }
-          });
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-          )
-        }
-      });
-    }
+    // function deleteAction(id, idnd) {
+    //   const swalWithBootstrapButtons = Swal.mixin({
+    //     customClass: {
+    //       confirmButton: 'btn btn-success',
+    //       cancelButton: 'btn btn-danger'
+    //     },
+    //     buttonsStyling: false
+    //   })
+    //   swalWithBootstrapButtons.fire({
+    //     title: 'Are you sure?',
+    //     text: "You won't be able to revert this!",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonText: 'Yes, delete it!',
+    //     cancelButtonText: 'No, cancel!',
+    //     reverseButtons: true
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       $.ajax({
+    //         url: "../controller/perkuliahan-controller.php",
+    //         type: 'post',
+    //         data: {
+    //           id,
+    //           idnd,
+    //           tipe: 'delete'
+    //         },
+    //         success: function(data) {
+    //           swalWithBootstrapButtons.fire(
+    //             'Deleted!',
+    //             'Your file has been deleted.',
+    //             'success'
+    //           );
+    //           $('.item' + id + idnd).fadeOut(1500, function() {
+    //             $(this).remove();
+    //           });
+    //         },
+    //         error: function(data) {
+    //           swalWithBootstrapButtons.fire(
+    //             'Gagal!',
+    //             'Failed to delete your file.',
+    //             'error'
+    //           );
+    //         }
+    //       });
+    //     } else if (
+    //       result.dismiss === Swal.DismissReason.cancel
+    //     ) {
+    //       swalWithBootstrapButtons.fire(
+    //         'Cancelled',
+    //         'Your imaginary file is safe :)',
+    //         'error'
+    //       )
+    //     }
+    //   });
+    // }
 
     // DELETE BUTTON
-    $('.btn_delete').on('click', function() {
-      idLama = $(this).data('id');
-      idndLama = $(this).data('idnd');
-      deleteAction(idLama, idndLama);
-    });
+    // $('.btn_delete').on('click', function() {
+    //   idLama = $(this).data('id');
+    //   idndLama = $(this).data('idnd');
+    //   deleteAction(idLama, idndLama);
+    // });
 
-    // CREATE
-    $('.btn_simpan').on('click', function() {
-      let id = $('#id').val();
-      let idnd = $('#idnd').val();
-      let nip = $('#nip').val();
-      let nilai = $('#nilai').val();
-      let petugas = $('#petugas').val();
-      if (id == '' || idnd == '' || nip == '' || nilai == '' || petugas == '') {
-        Swal.fire(
-          'Warning!',
-          'Pastikan Semua Data sudah terisi',
-          'warning'
-        );
-      } else {
-        $.ajax({
-          url: "../controller/perkuliahan-controller.php",
-          type: 'post',
-          data: {
-            tipe: 'create',
-            id,
-            idnd,
-            nip,
-            nilai,
-            petugas
-          },
-          success: function(data) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Your work has been saved',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            setTimeout(function() {
-              window.location.reload(1);
-            }, 1600);
-          },
-          error: function(data) {
-            swalWithBootstrapButtons.fire(
-              'Gagal!',
-              'Failed to add data',
-              'error'
-            );
-          }
-        });
-      }
-    });
+    // // CREATE
+    // $('.btn_simpan').on('click', function() {
+    //   let id = $('#id').val();
+    //   let idnd = $('#idnd').val();
+    //   let nip = $('#nip').val();
+    //   let nilai = $('#nilai').val();
+    //   let petugas = $('#petugas').val();
+    //   if (id == '' || idnd == '' || nip == '' || nilai == '' || petugas == '') {
+    //     Swal.fire(
+    //       'Warning!',
+    //       'Pastikan Semua Data sudah terisi',
+    //       'warning'
+    //     );
+    //   } else {
+    //     $.ajax({
+    //       url: "../controller/perkuliahan-controller.php",
+    //       type: 'post',
+    //       data: {
+    //         tipe: 'create',
+    //         id,
+    //         idnd,
+    //         nip,
+    //         nilai,
+    //         petugas
+    //       },
+    //       success: function(data) {
+    //         Swal.fire({
+    //           icon: 'success',
+    //           title: 'Your work has been saved',
+    //           showConfirmButton: false,
+    //           timer: 1500
+    //         })
+    //         setTimeout(function() {
+    //           window.location.reload(1);
+    //         }, 1600);
+    //       },
+    //       error: function(data) {
+    //         swalWithBootstrapButtons.fire(
+    //           'Gagal!',
+    //           'Failed to add data',
+    //           'error'
+    //         );
+    //       }
+    //     });
+    //   }
+    // });
 
-    // EDIT BUTTON
-    $('.btn_edit').on('click', function() {
-      idLama = $(this).data('id');
-      idndLama = $(this).data('idnd');
-      editAction(idLama, idndLama);
-    });
+    // // EDIT BUTTON
+    // $('.btn_edit').on('click', function() {
+    //   idLama = $(this).data('id');
+    //   idndLama = $(this).data('idnd');
+    //   editAction(idLama, idndLama);
+    // });
 
-    // UPDATE
-    $('.btn_update').on('click', function() {
-      $.ajax({
-        url: "../controller/perkuliahan-controller.php",
-        type: 'post',
-        data: {
-          tipe: 'update',
-          idLama,
-          idndLama,
-          id: $('#edit-id').val(),
-          idnd: $('#edit-idnd').val(),
-          nip: $('#edit-nip').val(),
-          nilai: $('#edit-nilai').val(),
-          petugas: $('#edit-petugas').val()
-        },
-        success: function(data) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Update Success !',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          setTimeout(function() {
-            window.location.reload(1);
-          }, 1600);
-        },
-        error: function(data) {
-          swalWithBootstrapButtons.fire(
-            'Gagal!',
-            'Failed to delete your file.',
-            'error'
-          );
-        }
-      });
-    });
+    // // UPDATE
+    // $('.btn_update').on('click', function() {
+    //   $.ajax({
+    //     url: "../controller/perkuliahan-controller.php",
+    //     type: 'post',
+    //     data: {
+    //       tipe: 'update',
+    //       idLama,
+    //       idndLama,
+    //       id: $('#edit-id').val(),
+    //       idnd: $('#edit-idnd').val(),
+    //       nip: $('#edit-nip').val(),
+    //       nilai: $('#edit-nilai').val(),
+    //       petugas: $('#edit-petugas').val()
+    //     },
+    //     success: function(data) {
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: 'Update Success !',
+    //         showConfirmButton: false,
+    //         timer: 1500
+    //       })
+    //       setTimeout(function() {
+    //         window.location.reload(1);
+    //       }, 1600);
+    //     },
+    //     error: function(data) {
+    //       swalWithBootstrapButtons.fire(
+    //         'Gagal!',
+    //         'Failed to delete your file.',
+    //         'error'
+    //       );
+    //     }
+    //   });
+    // });
 
-    // EDIT
-    function editAction(id, idnd) {
-      $.ajax({
-        url: "../controller/perkuliahan-controller.php",
-        type: 'post',
-        data: {
-          id,
-          idnd,
-          tipe: 'edit'
-        },
-        success: function(data) {
-          let edit = $.parseJSON(data);
-          $('#edit-id').val(edit[0]['id']);
-          $('#edit-idnd').val(edit[0]['idnd']);
-          $('#edit-nip').val(edit[0]['nip']);
-          $('#edit-nilai').val(edit[0]['nilai']);
-        },
-        error: function(data) {
-          swalWithBootstrapButtons.fire(
-            'Gagal!',
-            'Failed to delete your file.',
-            'error'
-          );
-        }
-      });
-    }
+    // // EDIT
+    // function editAction(id, idnd) {
+    //   $.ajax({
+    //     url: "../controller/perkuliahan-controller.php",
+    //     type: 'post',
+    //     data: {
+    //       id,
+    //       idnd,
+    //       tipe: 'edit'
+    //     },
+    //     success: function(data) {
+    //       let edit = $.parseJSON(data);
+    //       $('#edit-id').val(edit[0]['id']);
+    //       $('#edit-idnd').val(edit[0]['idnd']);
+    //       $('#edit-nip').val(edit[0]['nip']);
+    //       $('#edit-nilai').val(edit[0]['nilai']);
+    //     },
+    //     error: function(data) {
+    //       swalWithBootstrapButtons.fire(
+    //         'Gagal!',
+    //         'Failed to delete your file.',
+    //         'error'
+    //       );
+    //     }
+    //   });
+    // }
   </script>
 </body>
 
